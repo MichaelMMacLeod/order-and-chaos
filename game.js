@@ -4,7 +4,9 @@ startGame = function() {
 	xDelay = 0;
 	yDelay = 0;
 	gameArea.start();
-	highlightVert = new highlight(100, 500, "vertical", "highlightVert.png")
+	highlightVert = new highlight(100, 500, "vertical", "highlightVert.png");
+	highlightHori = new highlight(500, 100, "horizontal", "highlightHori.png");
+
 }
 
 config = {
@@ -65,8 +67,9 @@ function highlight(width, height, orientation, source) {
 			ctx.globalAlpha = 0.5;
 			ctx.drawImage(this.image, this.xCoord, 0, this.width, this.height);
 			ctx.restore();
-		} else {
-			this.yCoord = x * 100 - 100;
+		} 
+		if (this.orientation == "horizontal") {
+			this.yCoord = y * 100 - 100;
 			ctx = gameArea.context;
 			ctx.save();
 			ctx.globalAlpha = 0.5;
@@ -83,5 +86,6 @@ updateGameArea = function() {
 	gameArea.clear();
 	gameArea.getInput();
 	highlightVert.update();
+	highlightHori.update();
 	console.log(x + " " + y);
 }
