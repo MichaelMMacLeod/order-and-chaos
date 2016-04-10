@@ -104,18 +104,34 @@ function grid(width, height, source) {
 }
 
 function piece(source) {
-	pieces.push(this);
 	this.width = 100;
 	this.height = 100;
 	this.image = new Image();
 	this.image.src = source;
 	this.xCoord = x * 100 - 100;
 	this.yCoord = y * 100 - 100;
+	if (check(this.xCoord, this.yCoord) == true) {
+		pieces.push(this);
+		piecex.push(this.xCoord);
+		piecey.push(this.yCoord);
+	}
 	this.update = function() {
 		ctx = gameArea.context;
 		ctx.save();
 		ctx.drawImage(this.image, this.xCoord, this.yCoord , this.width, this.height);
 	}
+}
+
+function check(xCoord, yCoord) {
+	var acceptable = true;
+	this.xCoord = xCoord;
+	this.yCoord = yCoord;
+	for (i = 0; i < pieces.length; i++) {
+		if (piecex[i] == xCoord && piecey[i] == yCoord) {
+			acceptable = false;
+		}
+	}
+	return acceptable;
 }
 
 updateGameArea = function() {
