@@ -1,6 +1,14 @@
 startGame = function() {
+	x = 1;
+	y = 1;
+	xDelay = 0;
+	yDelay = 0;
 	gameArea.start();
 	highlightVert = new highlight(100, 500, "vertical", "highlightVert.png")
+}
+
+config = {
+	delay : 10
 }
 
 gameArea = {
@@ -21,6 +29,24 @@ gameArea = {
 	},
 	clear : function() {
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+	},
+	getInput : function() {
+		if (gameArea.keys && gameArea.keys[65] && x > 1 && xDelay == 0) {
+			x--;
+			xDelay = config.delay;
+		} 
+		if (gameArea.keys && gameArea.keys[68] && x < 5 && xDelay == 0) {
+			x++;
+			xDelay = config.delay;
+		}
+		if (gameArea.keys && gameArea.keys[87] && y > 1 && yDelay == 0) {
+			y--;
+			yDelay = config.delay;
+		}
+		if (gameArea.keys && gameArea.keys[83] && y < 5 && yDelay == 0) {
+			y++;
+			yDelay = config.delay;
+		}
 	}
 }
 
@@ -32,16 +58,22 @@ function highlight(width, height, orientation, source) {
 	this.image = new Image();
 	this.image.src = source;
 	this.update = function() {
+		this.xCoord = x * 100 - 100;
+		this.yCoord = y * 100 - 100;
 		ctx = gameArea.context;
 		ctx.save();
 		ctx.globalAlpha = 0.5;
-		ctx.drawImage(this.image, 0, 0, this.width, this.height);
+		ctx.drawImage(this.image, this.xCoord, this.yCoord, this.width, this.height);
 		ctx.restore();
 	}
 
 }
 
 updateGameArea = function() {
+	if (xDelay > 0) {xDelay--;}
+	if (yDelay > 0) {yDelay--;}
 	gameArea.clear();
+	gameArea.getInput();
 	highlightVert.update();
+	console.log(x + " " + y);
 }
