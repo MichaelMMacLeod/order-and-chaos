@@ -1,4 +1,7 @@
 startGame = function() {
+	pieces = [];
+	piecex = [];
+	piecey = [];
 	x = 1;
 	y = 1;
 	xDelay = 0;
@@ -6,8 +9,6 @@ startGame = function() {
 	gameArea.start();
 	highlightVert = new highlight(100, 600, "vertical", "highlightVert.png");
 	highlightHori = new highlight(600, 100, "horizontal", "highlightHori.png");
-	red = new piece("red.png");
-	blue = new piece("blue.png");
 	grid = new grid(600, 600, "grid.png");
 
 }
@@ -51,6 +52,12 @@ gameArea = {
 		if (gameArea.keys && gameArea.keys[83] && y < 6 && yDelay == 0) {
 			y++;
 			yDelay = config.delay;
+		}
+		if (gameArea.keys && gameArea.keys[81]) {
+			red = new piece("red.png");
+		}
+		if (gameArea.keys && gameArea.keys[69]) {
+			blue = new piece("blue.png");
 		}
 	}
 }
@@ -97,6 +104,7 @@ function grid(width, height, source) {
 }
 
 function piece(source) {
+	pieces.push(this);
 	this.width = 100;
 	this.height = 100;
 	this.image = new Image();
@@ -116,6 +124,5 @@ updateGameArea = function() {
 	highlightVert.update();
 	highlightHori.update();
 	grid.update();
-	red.update();
-	blue.update();
+	for (i = 0; i < pieces.length; i++) {pieces[i].update();}
 }
