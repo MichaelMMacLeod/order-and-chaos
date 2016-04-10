@@ -94,6 +94,18 @@ function grid(width, height, source) {
 	}
 }
 
+function piece(source) {
+	this.width = 100;
+	this.height = 100;
+	this.image = new Image();
+	this.image.src = source;
+	this.update = function() {
+		ctx = gameArea.context;
+		ctx.save();
+		ctx.drawImage(this.image, x, y, this.width, this.height);
+	}
+}
+
 updateGameArea = function() {
 	if (xDelay > 0) {xDelay--;}
 	if (yDelay > 0) {yDelay--;}
