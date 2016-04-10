@@ -87,5 +87,4 @@ updateGameArea = function() {
 	gameArea.getInput();
 	highlightVert.update();
 	highlightHori.update();
-	console.log(x + " " + y);
 }
