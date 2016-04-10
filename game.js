@@ -17,8 +17,8 @@ config = {
 gameArea = {
 	canvas : document.createElement('canvas'),
 	start : function() {
-		this.canvas.width = 500;
-		this.canvas.height = 500;
+		this.canvas.width = 600;
+		this.canvas.height = 600;
 		this.context = this.canvas.getContext("2d");
 		document.body.insertBefore(this.canvas, document.body.childNodes[0]);
 		this.interval = setInterval(updateGameArea, 20);
@@ -38,7 +38,7 @@ gameArea = {
 			x--;
 			xDelay = config.delay;
 		} 
-		if (gameArea.keys && gameArea.keys[68] && x < 5 && xDelay == 0) {
+		if (gameArea.keys && gameArea.keys[68] && x < 6 && xDelay == 0) {
 			x++;
 			xDelay = config.delay;
 		}
@@ -46,7 +46,7 @@ gameArea = {
 			y--;
 			yDelay = config.delay;
 		}
-		if (gameArea.keys && gameArea.keys[83] && y < 5 && yDelay == 0) {
+		if (gameArea.keys && gameArea.keys[83] && y < 6 && yDelay == 0) {
 			y++;
 			yDelay = config.delay;
 		}
