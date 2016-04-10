@@ -1,4 +1,6 @@
 startGame = function() {
+	collums = [];
+	rows = [];
 	pieces = [];
 	piecex = [];
 	piecey = [];
@@ -85,7 +87,7 @@ function highlight(width, height, orientation, source) {
 			ctx.globalAlpha = 0.5;
 			ctx.drawImage(this.image, 0, this.yCoord, this.width, this.height);
 			ctx.restore();
-		}
+		}	
 	}
 
 }
@@ -126,7 +128,7 @@ function check(xCoord, yCoord) {
 	var acceptable = true;
 	this.xCoord = xCoord;
 	this.yCoord = yCoord;
-	for (i = 0; i < pieces.length; i++) {
+	for (var i = 0; i < pieces.length; i++) {
 		if (piecex[i] == xCoord && piecey[i] == yCoord) {
 			acceptable = false;
 		}
@@ -142,5 +144,5 @@ updateGameArea = function() {
 	highlightVert.update();
 	highlightHori.update();
 	grid.update();
-	for (i = 0; i < pieces.length; i++) {pieces[i].update();}
+	for (var i = 0; i < pieces.length; i++) {pieces[i].update();}
 }
