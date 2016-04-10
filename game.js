@@ -1,5 +1,6 @@
 startGame = function() {
 	gameArea.start();
+	highlightVert = new highlight(100, 500, "vertical", "highlightVert.png")
 }
 
 gameArea = {
@@ -23,6 +24,24 @@ gameArea = {
 	}
 }
 
+function highlight(width, height, orientation, source) {
+	this.orientation = orientation;
+	this.source = source;
+	this.width = width;
+	this.height = height;
+	this.image = new Image();
+	this.image.src = source;
+	this.update = function() {
+		ctx = gameArea.context;
+		ctx.save();
+		ctx.globalAlpha = 0.5;
+		ctx.drawImage(this.image, 0, 0, this.width, this.height);
+		ctx.restore();
+	}
+
+}
+
 updateGameArea = function() {
 	gameArea.clear();
+	highlightVert.update();
 }
