@@ -58,13 +58,21 @@ function highlight(width, height, orientation, source) {
 	this.image = new Image();
 	this.image.src = source;
 	this.update = function() {
-		this.xCoord = x * 100 - 100;
-		this.yCoord = y * 100 - 100;
-		ctx = gameArea.context;
-		ctx.save();
-		ctx.globalAlpha = 0.5;
-		ctx.drawImage(this.image, this.xCoord, this.yCoord, this.width, this.height);
-		ctx.restore();
+		if (this.orientation == "vertical") {
+			this.xCoord = x * 100 - 100;
+			ctx = gameArea.context;
+			ctx.save();
+			ctx.globalAlpha = 0.5;
+			ctx.drawImage(this.image, this.xCoord, 0, this.width, this.height);
+			ctx.restore();
+		} else {
+			this.yCoord = x * 100 - 100;
+			ctx = gameArea.context;
+			ctx.save();
+			ctx.globalAlpha = 0.5;
+			ctx.drawImage(this.image, 0, this.yCoord, this.width, this.height);
+			ctx.restore();
+		}
 	}
 
 }
