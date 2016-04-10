@@ -6,6 +6,7 @@ startGame = function() {
 	gameArea.start();
 	highlightVert = new highlight(100, 500, "vertical", "highlightVert.png");
 	highlightHori = new highlight(500, 100, "horizontal", "highlightHori.png");
+	grid = new grid(500, 500, "grid.png");
 
 }
 
@@ -80,6 +81,19 @@ function highlight(width, height, orientation, source) {
 
 }
 
+function grid(width, height, source) {
+	this.width = width;
+	this.height = height;
+	this.image = new Image();
+	this.image.src = source;
+	this.update = function() {
+		ctx = gameArea.context;
+		ctx.save();
+		ctx.drawImage(this.image, 0, 0, this.width, this.height);
+		ctx.restore();
+	}
+}
+
 updateGameArea = function() {
 	if (xDelay > 0) {xDelay--;}
 	if (yDelay > 0) {yDelay--;}
@@ -87,4 +101,5 @@ updateGameArea = function() {
 	gameArea.getInput();
 	highlightVert.update();
 	highlightHori.update();
+	grid.update();
 }
