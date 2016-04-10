@@ -6,6 +6,8 @@ startGame = function() {
 	gameArea.start();
 	highlightVert = new highlight(100, 600, "vertical", "highlightVert.png");
 	highlightHori = new highlight(600, 100, "horizontal", "highlightHori.png");
+	red = new piece("red.png");
+	blue = new piece("blue.png");
 	grid = new grid(600, 600, "grid.png");
 
 }
@@ -102,7 +104,7 @@ function piece(source) {
 	this.update = function() {
 		ctx = gameArea.context;
 		ctx.save();
-		ctx.drawImage(this.image, x, y, this.width, this.height);
+		ctx.drawImage(this.image, x * 100 - 100, y * 100 - 100, this.width, this.height);
 	}
 }
 
@@ -114,4 +116,6 @@ updateGameArea = function() {
 	highlightVert.update();
 	highlightHori.update();
 	grid.update();
+	red.update();
+	blue.update();
 }
