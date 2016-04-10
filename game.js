@@ -109,10 +109,12 @@ function piece(source) {
 	this.height = 100;
 	this.image = new Image();
 	this.image.src = source;
+	this.xCoord = x * 100 - 100;
+	this.yCoord = y * 100 - 100;
 	this.update = function() {
 		ctx = gameArea.context;
 		ctx.save();
-		ctx.drawImage(this.image, x * 100 - 100, y * 100 - 100, this.width, this.height);
+		ctx.drawImage(this.image, this.xCoord, this.yCoord , this.width, this.height);
 	}
 }
 
