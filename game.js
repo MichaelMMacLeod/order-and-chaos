@@ -4,9 +4,9 @@ startGame = function() {
 	xDelay = 0;
 	yDelay = 0;
 	gameArea.start();
-	highlightVert = new highlight(100, 500, "vertical", "highlightVert.png");
-	highlightHori = new highlight(500, 100, "horizontal", "highlightHori.png");
-	grid = new grid(500, 500, "grid.png");
+	highlightVert = new highlight(100, 600, "vertical", "highlightVert.png");
+	highlightHori = new highlight(600, 100, "horizontal", "highlightHori.png");
+	grid = new grid(600, 600, "grid.png");
 
 }
 
