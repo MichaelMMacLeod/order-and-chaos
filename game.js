@@ -1,9 +1,11 @@
 startGame = function() {
-	collums = [];
-	rows = [];
-	pieces = [];
-	piecex = [];
-	piecey = [];
+	matrix = [];
+	for (var i = 0; i < 6; i++) {
+		matrix[i] = [];
+		for (var j = 0; j < 6; j++) {
+			matrix[i][j] = undefined;
+		}
+	}
 	x = 1;
 	y = 1;
 	xDelay = 0;
@@ -56,10 +58,10 @@ gameArea = {
 			yDelay = config.delay;
 		}
 		if (gameArea.keys && gameArea.keys[81]) {
-			red = new piece("red.png");
+			red = new piece("red.png", "red");
 		}
 		if (gameArea.keys && gameArea.keys[69]) {
-			blue = new piece("blue.png");
+			blue = new piece("blue.png", "blue");
 		}
 	}
 }
@@ -105,17 +107,16 @@ function grid(width, height, source) {
 	}
 }
 
-function piece(source) {
+function piece(source, color) {
+	this.color = color;
 	this.width = 100;
 	this.height = 100;
 	this.image = new Image();
 	this.image.src = source;
 	this.xCoord = x * 100 - 100;
 	this.yCoord = y * 100 - 100;
-	if (check(this.xCoord, this.yCoord) == true) {
-		pieces.push(this);
-		piecex.push(this.xCoord);
-		piecey.push(this.yCoord);
+	if (matrix[x - 1][y - 1] == undefined) {
+		matrix[x - 1][y - 1] = this;
 	}
 	this.update = function() {
 		ctx = gameArea.context;
@@ -124,25 +125,19 @@ function piece(source) {
 	}
 }
 
-function check(xCoord, yCoord) {
-	var acceptable = true;
-	this.xCoord = xCoord;
-	this.yCoord = yCoord;
-	for (var i = 0; i < pieces.length; i++) {
-		if (piecex[i] == xCoord && piecey[i] == yCoord) {
-			acceptable = false;
-		}
-	}
-	return acceptable;
-}
-
 updateGameArea = function() {
-	if (xDelay > 0) {xDelay--;}
-	if (yDelay > 0) {yDelay--;}
+	if (xDelay > 0) { xDelay--; }
+	if (yDelay > 0) { yDelay--; }
 	gameArea.clear();
 	gameArea.getInput();
 	highlightVert.update();
 	highlightHori.update();
 	grid.update();
-	for (var i = 0; i < pieces.length; i++) {pieces[i].update();}
+	for (var i = 0; i < matrix.length; i++) {
+		for (var j = 0; j < matrix.length; j++) {
+			if (matrix[i][j] != undefined) {
+				matrix[i][j].update();
+			}
+		}
+	}
 }
