@@ -125,7 +125,7 @@ function piece(source, color) {
 	}
 }
 
-function checkWin() {
+function checkOrderWin() {
 	for (var i = 0; i < matrix.length; i++) {
 		for (var j = 0; j < matrix.length; j++) {
 			try {
@@ -219,5 +219,5 @@ updateGameArea = function() {
 			}
 		}
 	}
-	checkWin();
+	checkOrderWin();
 }
