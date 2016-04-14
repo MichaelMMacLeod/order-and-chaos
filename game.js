@@ -143,6 +143,7 @@ function piece(source, color) {
 }
 
 function checkOrderWin() {
+	var chaosWin = true;
 	for (var i = 0; i < matrix.length; i++) {
 		for (var j = 0; j < matrix.length; j++) {
 			try {
@@ -226,7 +227,13 @@ function checkOrderWin() {
 						gridRedOrderWin = new winGrid(600, 600, "gridRedOrderWin.png");
 					}					}
 			} catch (err) { }
+			if (matrix[i][j] == undefined) {
+				chaosWin = false;
+			}
 		}
+	}
+	if (endScreen.length == 0 && chaosWin) {
+		gridChaosWin = new winGrid(600, 600, "gridChaosWin.png");
 	}
 }
 
