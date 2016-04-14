@@ -1,4 +1,6 @@
 startGame = function() {
+	on = true;
+	endScreen = [];
 	matrix = [];
 	for (var i = 0; i < 6; i++) {
 		matrix[i] = [];
@@ -107,6 +109,21 @@ function grid(width, height, source) {
 	}
 }
 
+function winGrid(width, height, source) {
+	on = false;
+	this.width = width;
+	this.height = height;
+	this.image = new Image();
+	this.image.src = source;
+	endScreen.push(this);
+	this.update = function() {
+		ctx = gameArea.context;
+		ctx.save();
+		ctx.drawImage(this.image, 0, 0, this.width, this.height);
+		ctx.restore();
+	}
+}
+
 function piece(source, color) {
 	this.color = color;
 	this.width = 100;
@@ -134,7 +151,9 @@ function checkOrderWin() {
 					matrix[i + 2][j + 2].color == "blue" &&
 					matrix[i + 3][j + 3].color == "blue" &&
 					matrix[i + 4][j + 4].color == "blue") {
-					console.log("order wins, 1");
+					if (on) {
+						gridBlueOrderWin = new winGrid(600, 600, "gridBlueOrderWin.png");
+					}
 				} 
 			} catch (err) { }
 			try {
@@ -143,8 +162,9 @@ function checkOrderWin() {
 					matrix[i - 2][j + 2].color == "blue" &&
 					matrix[i - 3][j + 3].color == "blue" &&
 					matrix[i - 4][j + 4].color == "blue") {
-					console.log("order wins, 2");
-				}
+					if (on) {
+						gridBlueOrderWin = new winGrid(600, 600, "gridBlueOrderWin.png");
+					}				}
 			} catch (err) { }
 			try {
 				if (matrix[i][j].color == "blue" && // Down
@@ -152,8 +172,9 @@ function checkOrderWin() {
 					matrix[i][j + 2].color == "blue" &&
 					matrix[i][j + 3].color == "blue" &&
 					matrix[i][j + 4].color == "blue") {
-					console.log("order wins, 3");
-				}
+					if (on) {
+						gridBlueOrderWin = new winGrid(600, 600, "gridBlueOrderWin.png");
+					}				}
 			} catch (err) { }
 			try {
 				if (matrix[i][j].color == "blue" && // Right
@@ -161,8 +182,9 @@ function checkOrderWin() {
 					matrix[i + 2][j].color == "blue" &&
 					matrix[i + 3][j].color == "blue" &&
 					matrix[i + 4][j].color == "blue") {
-					console.log("order wins, 4");
-				}
+					if (on) {
+						gridBlueOrderWin = new winGrid(600, 600, "gridBlueOrderWin.png");
+					}				}
 			} catch (err) { }
 			try {
 				if (matrix[i][j].color == "red" && // Diagonal right down
@@ -170,8 +192,9 @@ function checkOrderWin() {
 					matrix[i + 2][j + 2].color == "red" &&
 					matrix[i + 3][j + 3].color == "red" &&
 					matrix[i + 4][j + 4].color == "red") {
-					console.log("order wins, 1");
-				} 
+					if (on) {
+						gridRedOrderWin = new winGrid(600, 600, "gridRedOrderWin.png");
+					}				} 
 			} catch (err) { }
 			try {
 				if (matrix[i][j].color == "red" && // Diagonal left down
@@ -179,8 +202,9 @@ function checkOrderWin() {
 					matrix[i - 2][j + 2].color == "red" &&
 					matrix[i - 3][j + 3].color == "red" &&
 					matrix[i - 4][j + 4].color == "red") {
-					console.log("order wins, 2");
-				}
+					if (on) {
+						gridRedOrderWin = new winGrid(600, 600, "gridRedOrderWin.png");
+					}					}
 			} catch (err) { }
 			try {
 				if (matrix[i][j].color == "red" && // Down
@@ -188,8 +212,9 @@ function checkOrderWin() {
 					matrix[i][j + 2].color == "red" &&
 					matrix[i][j + 3].color == "red" &&
 					matrix[i][j + 4].color == "red") {
-					console.log("order wins, 3");
-				}
+					if (on) {
+						gridRedOrderWin = new winGrid(600, 600, "gridRedOrderWin.png");
+					}					}
 			} catch (err) { }
 			try {
 				if (matrix[i][j].color == "red" && // Right
@@ -197,8 +222,9 @@ function checkOrderWin() {
 					matrix[i + 2][j].color == "red" &&
 					matrix[i + 3][j].color == "red" &&
 					matrix[i + 4][j].color == "red") {
-					console.log("order wins, 4");
-				}
+					if (on) {
+						gridRedOrderWin = new winGrid(600, 600, "gridRedOrderWin.png");
+					}					}
 			} catch (err) { }
 		}
 	}
@@ -218,6 +244,9 @@ updateGameArea = function() {
 				matrix[i][j].update();
 			}
 		}
+	}
+	for (var i = 0; i < endScreen.length; i ++) {
+		endScreen[i].update();
 	}
 	checkOrderWin();
 }
