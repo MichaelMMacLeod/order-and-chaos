@@ -125,6 +125,85 @@ function piece(source, color) {
 	}
 }
 
+function checkWin() {
+	for (var i = 0; i < matrix.length; i++) {
+		for (var j = 0; j < matrix.length; j++) {
+			try {
+				if (matrix[i][j].color == "blue" && // Diagonal right down
+					matrix[i + 1][j + 1].color == "blue" &&
+					matrix[i + 2][j + 2].color == "blue" &&
+					matrix[i + 3][j + 3].color == "blue" &&
+					matrix[i + 4][j + 4].color == "blue") {
+					console.log("order wins, 1");
+				} 
+			} catch (err) { }
+			try {
+				if (matrix[i][j].color == "blue" && // Diagonal left down
+					matrix[i - 1][j + 1].color == "blue" &&
+					matrix[i - 2][j + 2].color == "blue" &&
+					matrix[i - 3][j + 3].color == "blue" &&
+					matrix[i - 4][j + 4].color == "blue") {
+					console.log("order wins, 2");
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j].color == "blue" && // Down
+					matrix[i][j + 1].color == "blue" &&
+					matrix[i][j + 2].color == "blue" &&
+					matrix[i][j + 3].color == "blue" &&
+					matrix[i][j + 4].color == "blue") {
+					console.log("order wins, 3");
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j].color == "blue" && // Right
+					matrix[i + 1][j].color == "blue" &&
+					matrix[i + 2][j].color == "blue" &&
+					matrix[i + 3][j].color == "blue" &&
+					matrix[i + 4][j].color == "blue") {
+					console.log("order wins, 4");
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j].color == "red" && // Diagonal right down
+					matrix[i + 1][j + 1].color == "red" &&
+					matrix[i + 2][j + 2].color == "red" &&
+					matrix[i + 3][j + 3].color == "red" &&
+					matrix[i + 4][j + 4].color == "red") {
+					console.log("order wins, 1");
+				} 
+			} catch (err) { }
+			try {
+				if (matrix[i][j].color == "red" && // Diagonal left down
+					matrix[i - 1][j + 1].color == "red" &&
+					matrix[i - 2][j + 2].color == "red" &&
+					matrix[i - 3][j + 3].color == "red" &&
+					matrix[i - 4][j + 4].color == "red") {
+					console.log("order wins, 2");
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j].color == "red" && // Down
+					matrix[i][j + 1].color == "red" &&
+					matrix[i][j + 2].color == "red" &&
+					matrix[i][j + 3].color == "red" &&
+					matrix[i][j + 4].color == "red") {
+					console.log("order wins, 3");
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j].color == "red" && // Right
+					matrix[i + 1][j].color == "red" &&
+					matrix[i + 2][j].color == "red" &&
+					matrix[i + 3][j].color == "red" &&
+					matrix[i + 4][j].color == "red") {
+					console.log("order wins, 4");
+				}
+			} catch (err) { }
+		}
+	}
+}
+
 updateGameArea = function() {
 	if (xDelay > 0) { xDelay--; }
 	if (yDelay > 0) { yDelay--; }
@@ -140,4 +219,5 @@ updateGameArea = function() {
 			}
 		}
 	}
+	checkWin();
 }
