@@ -50,11 +50,15 @@ gameArea = {
 	},
 	getInput : function() {
 		for (var i = 100; i <= 600; i = i + 100) {
-			if (mouseX > i - 100 && mouseX < i) { x = i / 100; }
+			if (mouseX > i - 95 && mouseX < i + 5) { x = i / 100; }
 		}
 		for (var i = 100; i <= 600; i = i + 100) {
-			if (mouseY > i - 100 && mouseY < i) { y = i / 100; }
+			if (mouseY > i - 95 && mouseY < i + 5) { y = i / 100; }
 		}
+		// You might be wondering: why the 95 and why i + 5? 
+		// It's because the canvas is about 5 pixels from the edge of the
+		// page. When we use 100 instead of 95, the cursor is detected in
+		// the incorrect position.
 		if (gameArea.keys && gameArea.keys[65] && x > 1 && xDelay == 0) {
 			x--;
 			xDelay = config.delay;
