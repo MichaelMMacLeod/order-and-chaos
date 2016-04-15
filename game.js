@@ -1,4 +1,6 @@
 startGame = function() {
+	mouseX = 0;
+	mouseY = 0;
 	on = true;
 	endScreen = [];
 	matrix = [];
@@ -38,11 +40,21 @@ gameArea = {
 		window.addEventListener('keyup', function (e){
 			gameArea.keys[e.keyCode] = false;
 		})
+		window.addEventListener('mousemove', function (e) {
+			mouseX = e.pageX
+			mouseY = e.pageY
+		})
 	},
 	clear : function() {
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	},
 	getInput : function() {
+		for (var i = 100; i <= 600; i = i + 100) {
+			if (mouseX > i - 100 && mouseX < i) { x = i / 100; }
+		}
+		for (var i = 100; i <= 600; i = i + 100) {
+			if (mouseY > i - 100 && mouseY < i) { y = i / 100; }
+		}
 		if (gameArea.keys && gameArea.keys[65] && x > 1 && xDelay == 0) {
 			x--;
 			xDelay = config.delay;
