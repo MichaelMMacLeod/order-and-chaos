@@ -22,7 +22,9 @@ startGame = function() {
 }
 
 config = {
-	delay : 10
+	delay : 10,
+	blueKey : 69,
+	redKey : 81
 }
 
 gameArea = {
@@ -77,10 +79,10 @@ gameArea = {
 			y++;
 			yDelay = config.delay;
 		}
-		if (gameArea.keys && gameArea.keys[81]) {
+		if (gameArea.keys && gameArea.keys[config.redKey]) {
 			red = new piece("red.png", "red");
 		}
-		if (gameArea.keys && gameArea.keys[69]) {
+		if (gameArea.keys && gameArea.keys[config.blueKey]) {
 			blue = new piece("blue.png", "blue");
 		}
 	}
