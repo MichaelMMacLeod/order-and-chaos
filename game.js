@@ -42,11 +42,23 @@ reload = function() {
 help = {
 	button : document.createElement('button'),
 	create : function() {
-		this.button.setAttribute("id", "helpMenu");
-		this.button.setAttribute("onclick", "help.remove();");
+		this.button.setAttribute('id', 'helpMenu');
+		this.button.setAttribute('onclick', 'help.remove();');
+		this.button.innerHTML = "";
+		this.button.innerHTML += "This is a two player game. One player takes on the role of ORDER, and the other takes on the role of CHAOS. ";
+		this.button.innerHTML += "Players take turns placing down either a red O or blue X. ";
+		this.button.innerHTML += "The goal of order is to get five red or five blue in a row. ";
+		this.button.innerHTML += "The goal of chaos is to fill the entire board without getting five in a row. ";
+		this.button.innerHTML += "Remember that you can play any color on your turn.<br><br>";
+		this.button.innerHTML += "Use either the mouse or w/a/s/d to select a square.<br>";
+		this.button.innerHTML += "Press Q to place a red O.<br>";
+		this.button.innerHTML += "Press E to place a blue X.<br><br>";
+		this.button.innerHTML += "Click the reload button to reset the board.";
+
 		document.body.appendChild(this.button);
 	},
 	remove : function() {
+		this.button.innerHTML = "";
 		helpMenu.remove();
 	}
 
