@@ -1,6 +1,7 @@
 canvas {
 	padding: 0px;
 	float: left;
+	border: 1px solid #dedf4b;
 }
 
 .button {
@@ -13,7 +14,7 @@ canvas {
 	cursor: pointer;
 	width: 92px;
 	height: 92px;
-	border: 1px solid orange;
+	border: 1px solid #dedf4b;
 	outline: none;
 }
 
@@ -41,7 +42,7 @@ canvas {
 #helpMenu {
 	float: left;
 	background-color: #feffa1;
-	border: 1px solid orange;
+	border: 1px solid #dedf4b;
 	margin-left: 5px;
 	width: 300px;
 	height: 300px;
