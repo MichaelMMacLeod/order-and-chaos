@@ -33,10 +33,22 @@ canvas {
 	background-image: url("reloadButton.png");
 }
 
+#helpButton {
+	background-image: url("helpButton.png");
+}
+
+#helpMenu {
+	float: left;
+	background-color: #feffa1;
+	border: 1px solid orange;
+	margin-left: 5px;
+	width: 300px;
+	height: 300px;
+}
+
 #menu {
 	float: left;
 	padding: 5px;
 	margin-left: 5px;
-	border: 1px solid black;
 	height: 588px;
 }

@@ -39,6 +39,19 @@ reload = function() {
 	}
 }
 
+help = {
+	button : document.createElement('button'),
+	create : function() {
+		this.button.setAttribute("id", "helpMenu");
+		this.button.setAttribute("onclick", "help.remove();");
+		document.body.appendChild(this.button);
+	},
+	remove : function() {
+		helpMenu.remove();
+	}
+
+}
+
 gameArea = {
 	canvas : document.createElement('canvas'),
 	start : function() {
