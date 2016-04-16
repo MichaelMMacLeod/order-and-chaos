@@ -54,7 +54,6 @@ help = {
 		this.button.innerHTML += "Press Q to place a red O.<br>";
 		this.button.innerHTML += "Press E to place a blue X.<br><br>";
 		this.button.innerHTML += "Click the reload button to reset the board.";
-
 		document.body.appendChild(this.button);
 	},
 	remove : function() {
@@ -199,7 +198,7 @@ function piece(source, color) {
 	}
 }
 
-function checkOrderWin() {
+function checkWin() {
 	var chaosWin = true;
 	for (var i = 0; i < matrix.length; i++) {
 		for (var j = 0; j < matrix.length; j++) {
@@ -312,5 +311,5 @@ updateGameArea = function() {
 	for (var i = 0; i < endScreen.length; i ++) {
 		endScreen[i].update();
 	}
-	checkOrderWin();
+	checkWin();
 }
