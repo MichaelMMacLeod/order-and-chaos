@@ -27,6 +27,18 @@ config = {
 	redKey : 81
 }
 
+reload = function() {
+	on = true;
+	for (var i = 0; i < endScreen.length; i++) {
+		endScreen.splice(i, 1);
+	}
+	for (var i = 0; i < matrix.length; i++) {
+		for (var j = 0; j < matrix.length; j++) {
+			matrix[i][j] = undefined;
+		}
+	}
+}
+
 gameArea = {
 	canvas : document.createElement('canvas'),
 	start : function() {
