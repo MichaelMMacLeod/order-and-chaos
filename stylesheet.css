@@ -39,6 +39,14 @@ canvas {
 	background-image: url("helpButton.png");
 }
 
+#aiOrderButton {
+	background-image: url("aiOrderButton.png");
+}
+
+#aiChaosButton {
+	background-image: url("aiChaosButton.png");
+}
+
 #helpMenu {
 	float: left;
 	background-color: #feffa1;
