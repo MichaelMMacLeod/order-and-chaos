@@ -1,4 +1,7 @@
 startGame = function() {
+	playerTurn = true;
+	aiOrder = false;
+	aiChaos = false; 
 	mouseX = 0;
 	mouseY = 0;
 	on = true;
@@ -8,6 +11,13 @@ startGame = function() {
 		matrix[i] = [];
 		for (var j = 0; j < 6; j++) {
 			matrix[i][j] = undefined;
+		}
+	}
+	aiTestMatrix = [];
+	for (var i = 0; i < 6; i++) {
+		aiTestMatrix[i] = [];
+		for (var j = 0; j < 6; j++) {
+			aiTestMatrix[i][j] = undefined;
 		}
 	}
 	x = 1;
@@ -21,6 +31,26 @@ startGame = function() {
 
 }
 
+function ai(type) {
+	this.type = type;
+	if (this.type == "order" && !aiChaos) { aiOrder = true; }
+	if (this.type == "chaos" && !aiOrder) { aiChaos = true; }
+}
+
+function aiOrderTurn() {
+	aiX = 0;
+	aiY = 0;
+	for (aiX = 0; aiX < 6; aiX++) {
+		for (aiY = 0; aiY < 6; aiY++) {
+			redTest = new piece("red.png", "red");
+		}
+	}
+}
+
+function aiChaosTurn() {
+
+}
+
 config = {
 	delay : 10,
 	blueKey : 69,
@@ -29,12 +59,20 @@ config = {
 
 reload = function() {
 	on = true;
+	playerTurn = true;
+	aiChaos = false;
+	aiOrder = false;
 	for (var i = 0; i < endScreen.length; i++) {
 		endScreen.splice(i, 1);
 	}
 	for (var i = 0; i < matrix.length; i++) {
 		for (var j = 0; j < matrix.length; j++) {
 			matrix[i][j] = undefined;
+		}
+	}
+	for (var i = 0; i < aiTestMatrix.length; i++) {
+		for (var j = 0; j < aiTestMatrix.length; j++) {
+			aiTestMatrix[i][j] = undefined;
 		}
 	}
 }
@@ -116,11 +154,13 @@ gameArea = {
 			y++;
 			yDelay = config.delay;
 		}
-		if (gameArea.keys && gameArea.keys[config.redKey]) {
+		if (gameArea.keys && gameArea.keys[config.redKey] && playerTurn) {
 			red = new piece("red.png", "red");
+			if (aiChaos || aiOrder) { playerTurn = false; }
 		}
-		if (gameArea.keys && gameArea.keys[config.blueKey]) {
+		if (gameArea.keys && gameArea.keys[config.blueKey] && playerTurn) {
 			blue = new piece("blue.png", "blue");
+			if (aiChaos || aiOrder) { playerTurn = false; }
 		}
 	}
 }
@@ -189,8 +229,11 @@ function piece(source, color) {
 	this.image.src = source;
 	this.xCoord = x * 100 - 100;
 	this.yCoord = y * 100 - 100;
-	if (matrix[x - 1][y - 1] == undefined) {
+	if (matrix[x - 1][y - 1] == undefined && playerTurn) {
 		matrix[x - 1][y - 1] = this;
+	}
+	if (!playerTurn && aiTestMatrix[aiX][aiY] == undefined) {
+		aiTestMatrix[aiX][aiY] = this;
 	}
 	this.update = function() {
 		ctx = gameArea.context;
@@ -313,4 +356,5 @@ updateGameArea = function() {
 		endScreen[i].update();
 	}
 	checkWin();
+	if (!playerTurn) { aiOrderTurn(); }
 }
