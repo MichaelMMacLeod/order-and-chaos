@@ -1,5 +1,5 @@
 startGame = function() {
-	playerTurn = true;
+	aiPlaceable = true;
 	aiOrder = false;
 	aiChaos = false; 
 	mouseX = 0;
@@ -10,14 +10,14 @@ startGame = function() {
 	for (var i = 0; i < 6; i++) {
 		matrix[i] = [];
 		for (var j = 0; j < 6; j++) {
-			matrix[i][j] = undefined;
+			matrix[i][j] = 0;
 		}
 	}
 	aiTestMatrix = [];
 	for (var i = 0; i < 6; i++) {
 		aiTestMatrix[i] = [];
 		for (var j = 0; j < 6; j++) {
-			aiTestMatrix[i][j] = undefined;
+			aiTestMatrix[i][j] = 0;
 		}
 	}
 	x = 1;
@@ -38,11 +38,30 @@ function ai(type) {
 }
 
 function aiOrderTurn() {
-	aiX = 0;
-	aiY = 0;
-	for (aiX = 0; aiX < 6; aiX++) {
-		for (aiY = 0; aiY < 6; aiY++) {
-			redTest = new piece("red.png", "red");
+	var counter = 0;
+	for (var i = 0; i < matrix.length; i++) {
+		for (var j = 0; j < matrix.length; j++) {
+			counter = 0;
+			for (var k = 0; k < 5; k++) {
+				try {
+					if (matrix[i + k][j].color == "red") {
+						counter++;
+						console.log(" color: " + matrix[i + k][j].color + " i: " + i + " j: " + j + " k: " + k + " counter: " + counter);
+					}
+					if (matrix[i + k][j].color == "blue") {
+						counter--;
+						console.log(" color: " + matrix[i + k][j].color + " i: " + i + " j: " + j + " k: " + k + " counter: " + counter);
+					}
+				} catch (err) { counter = 0; }
+			}
+			if (counter == 4) {
+				for (var k = 0; k < 5; k++) {
+					if (matrix[i + k][j] == 0) {
+						red = new aiPiece("red.png", "red", i + k, j);
+						aiPlaceable = false;
+					}
+				}
+			}
 		}
 	}
 }
@@ -59,7 +78,6 @@ config = {
 
 reload = function() {
 	on = true;
-	playerTurn = true;
 	aiChaos = false;
 	aiOrder = false;
 	for (var i = 0; i < endScreen.length; i++) {
@@ -67,12 +85,12 @@ reload = function() {
 	}
 	for (var i = 0; i < matrix.length; i++) {
 		for (var j = 0; j < matrix.length; j++) {
-			matrix[i][j] = undefined;
+			matrix[i][j] = 0;
 		}
 	}
 	for (var i = 0; i < aiTestMatrix.length; i++) {
 		for (var j = 0; j < aiTestMatrix.length; j++) {
-			aiTestMatrix[i][j] = undefined;
+			aiTestMatrix[i][j] = 0;
 		}
 	}
 }
@@ -126,6 +144,8 @@ gameArea = {
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	},
 	getInput : function() {
+		if (xDelay > 0) { xDelay--; }
+		if (yDelay > 0) { yDelay--; }
 		if (mouseX > 5 && mouseX < 605 && mouseY > 5 && mouseY < 605) {
 			for (var i = 100; i <= 600; i = i + 100) {
 				if (mouseX > i - 95 && mouseX < i + 5) { x = i / 100; }
@@ -154,13 +174,13 @@ gameArea = {
 			y++;
 			yDelay = config.delay;
 		}
-		if (gameArea.keys && gameArea.keys[config.redKey] && playerTurn) {
+		if (gameArea.keys && gameArea.keys[config.redKey]) {
 			red = new piece("red.png", "red");
-			if (aiChaos || aiOrder) { playerTurn = false; }
+			if (aiOrder) { aiOrderTurn(); aiPlaceable = false; }
 		}
-		if (gameArea.keys && gameArea.keys[config.blueKey] && playerTurn) {
+		if (gameArea.keys && gameArea.keys[config.blueKey]) {
 			blue = new piece("blue.png", "blue");
-			if (aiChaos || aiOrder) { playerTurn = false; }
+			if (aiOrder) { aiOrderTurn(); aiPlaceable = false; }
 		}
 	}
 }
@@ -221,6 +241,25 @@ function winGrid(width, height, source) {
 	}
 }
 
+function aiPiece(source, color, aiX, aiY) {
+	this.color = color;
+	this.width = 100;
+	this.height = 100;
+	this.image = new Image();
+	this.image.src = source;
+	this.xCoord = aiX * 100;
+	this.yCoord = aiY * 100;
+	if (aiPlaceable) { 
+		matrix[aiX][aiY] = this;
+		console.log(this.xCoord + this.yCoord);
+	}
+	this.update = function() {
+		ctx = gameArea.context;
+		ctx.save();
+		ctx.drawImage(this.image, this.xCoord, this.yCoord , this.width, this.height);
+	}
+}
+
 function piece(source, color) {
 	this.color = color;
 	this.width = 100;
@@ -229,11 +268,8 @@ function piece(source, color) {
 	this.image.src = source;
 	this.xCoord = x * 100 - 100;
 	this.yCoord = y * 100 - 100;
-	if (matrix[x - 1][y - 1] == undefined && playerTurn) {
+	if (matrix[x - 1][y - 1] == 0) {
 		matrix[x - 1][y - 1] = this;
-	}
-	if (!playerTurn && aiTestMatrix[aiX][aiY] == undefined) {
-		aiTestMatrix[aiX][aiY] = this;
 	}
 	this.update = function() {
 		ctx = gameArea.context;
@@ -327,7 +363,7 @@ function checkWin() {
 						gridRedOrderWin = new winGrid(600, 600, "gridRedOrderWin.png");
 					}					}
 			} catch (err) { }
-			if (matrix[i][j] == undefined) {
+			if (matrix[i][j] == 0) {
 				chaosWin = false;
 			}
 		}
@@ -338,8 +374,6 @@ function checkWin() {
 }
 
 updateGameArea = function() {
-	if (xDelay > 0) { xDelay--; }
-	if (yDelay > 0) { yDelay--; }
 	gameArea.clear();
 	gameArea.getInput();
 	highlightVert.update();
@@ -347,7 +381,7 @@ updateGameArea = function() {
 	grid.update();
 	for (var i = 0; i < matrix.length; i++) {
 		for (var j = 0; j < matrix.length; j++) {
-			if (matrix[i][j] != undefined) {
+			if (matrix[i][j] != 0) {
 				matrix[i][j].update();
 			}
 		}
@@ -356,5 +390,4 @@ updateGameArea = function() {
 		endScreen[i].update();
 	}
 	checkWin();
-	if (!playerTurn) { aiOrderTurn(); }
 }
