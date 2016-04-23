@@ -264,7 +264,6 @@ gameArea = {
 		}
 		if (gameArea.keys && gameArea.keys[config.redKey]) {
 			red = new piece("red.png", "red");
-			if (aiOrder) { aiOrderTurn(); aiPlaceable = false; }
 		}
 		if (gameArea.keys && gameArea.keys[config.blueKey]) {
 			blue = new piece("blue.png", "blue");
@@ -357,6 +356,7 @@ function piece(source, color) {
 	this.yCoord = y * 100 - 100;
 	if (matrix[x - 1][y - 1] == 0) {
 		matrix[x - 1][y - 1] = this;
+		if (aiOrder) { aiOrderTurn(); aiPlaceable = false; }
 	}
 	this.update = function() {
 		ctx = gameArea.context;
