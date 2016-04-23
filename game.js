@@ -62,6 +62,14 @@ function aiOrderTurn() {
 					}
 				}
 			}
+			if (counter == -4) {
+				for (var k = 0; k < 5; k++) {
+					if (matrix[i + k][j] == 0) {
+						blue = new aiPiece("blue.png", "blue", i + k, j);
+						aiPlaceable = false;
+					}
+				}
+			}
 		}
 	}
 }
