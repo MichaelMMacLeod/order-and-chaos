@@ -33,8 +33,20 @@ startGame = function() {
 
 function ai(type) {
 	this.type = type;
-	if (this.type == "order" && !aiChaos) { aiOrder = true; }
-	if (this.type == "chaos" && !aiOrder) { aiChaos = true; }
+	var buttonO = document.getElementById("aiOrderButton");
+	var buttonC = document.getElementById("aiChaosButton");
+	if (aiOrder) {
+		buttonO.style.marginLeft = "0px";
+	} else if (this.type == "order" && !aiChaos) { 
+		aiOrder = true; 
+		buttonO.style.marginLeft = "10px";
+	}
+	if (aiChaos) {
+		buttonC.style.marginLeft = "0px";
+	} else if (this.type == "chaos" && !aiOrder) { 
+		aiChaos = true;
+		buttonC.style.marginLeft = "10px"; 
+	}
 }
 
 function aiOrderTurn() {
