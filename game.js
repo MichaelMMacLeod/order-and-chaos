@@ -44,17 +44,15 @@ function aiOrderTurn() {
 			counter = 0;
 			for (var k = 0; k < 5; k++) {
 				try {
-					if (matrix[i + k][j].color == "red") {
+					if (matrix[i + k][j].color == "red") { // Right, red
 						counter++;
-						console.log(" color: " + matrix[i + k][j].color + " i: " + i + " j: " + j + " k: " + k + " counter: " + counter);
 					}
-					if (matrix[i + k][j].color == "blue") {
+					if (matrix[i + k][j].color == "blue") { // Right, blue
 						counter--;
-						console.log(" color: " + matrix[i + k][j].color + " i: " + i + " j: " + j + " k: " + k + " counter: " + counter);
 					}
 				} catch (err) { counter = 0; }
 			}
-			if (counter == 4) {
+			if (counter == 4) { // Right, red
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i + k][j] == 0) {
 						red = new aiPiece("red.png", "red", i + k, j);
@@ -62,7 +60,7 @@ function aiOrderTurn() {
 					}
 				}
 			}
-			if (counter == -4) {
+			if (counter == -4) { // Right, blue
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i + k][j] == 0) {
 						blue = new aiPiece("blue.png", "blue", i + k, j);
@@ -70,6 +68,34 @@ function aiOrderTurn() {
 					}
 				}
 			}
+			counter = 0;
+			for (var k = 0; k < 5; k++) {
+				try {
+					if (matrix[i][j + k].color == "red") { // Down, red
+						counter++;
+					}
+					if (matrix[i][j + k].color == "blue") { // Down, blue
+						counter--;
+					}
+				} catch (err) { counter = 0; }
+			}
+			if (counter == 4) { // Down, red
+				for (var k = 0; k < 5; k++) {
+					if (matrix[i][j + k] == 0) {
+						red = new aiPiece("red.png", "red", i, j + k);
+						aiPlaceable = false;
+					}
+				}
+			}
+			if (counter == -4) { // Down, blue
+				for (var k = 0; k < 5; k++) {
+					if (matrix[i][j + k] == 0) {
+						blue = new aiPiece("blue.png", "blue", i, j + k);
+						aiPlaceable = false;
+					}
+				}
+			}
+			counter = 0;
 		}
 	}
 }
@@ -259,7 +285,6 @@ function aiPiece(source, color, aiX, aiY) {
 	this.yCoord = aiY * 100;
 	if (aiPlaceable) { 
 		matrix[aiX][aiY] = this;
-		console.log(this.xCoord + this.yCoord);
 	}
 	this.update = function() {
 		ctx = gameArea.context;
