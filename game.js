@@ -123,6 +123,33 @@ function aiOrderTurn() {
 				}
 			}
 			counter = 0;
+			for (var k = 0; k < 5; k++) {
+				try {
+					if (matrix[i - k][j + k].color == "red") { // Diagonal left down, red
+						counter++;
+					}
+					if (matrix[i - k][j + k].color == "blue") { // Diagonal left down, blue
+						counter--;
+					}
+				} catch (err) { counter = 0; }
+			}
+			if (counter == 4) { // Diagonal left down, red
+				for (var k = 0; k < 5; k++) {
+					if (matrix[i - k][j + k] == 0) {
+						red = new aiPiece("red.png", "red", i - k, j + k);
+						aiPlaceable = false;
+					}
+				}
+			}
+			if (counter == -4) { // Diagonal left down, blue
+				for (var k = 0; k < 5; k++) {
+					if (matrix[i - k][j + k] == 0) {
+						blue = new aiPiece("blue.png", "blue", i - k, j + k);
+						aiPlaceable = false;
+					}
+				}
+			}
+			counter = 0;
 		}
 	}
 }
