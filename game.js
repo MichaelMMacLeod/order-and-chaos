@@ -201,6 +201,7 @@ reload = function() {
 help = {
 	button : document.createElement('button'),
 	create : function() {
+		var helpButton = document.getElementById("helpButton");
 		var display = document.getElementById("helpMenu");
 		this.button.setAttribute('id', 'helpMenu');
 		this.button.setAttribute('onclick', 'help.remove();');
@@ -214,10 +215,17 @@ help = {
 		this.button.innerHTML += "Press Q to place a red O.<br>";
 		this.button.innerHTML += "Press E to place a blue X.<br><br>";
 		this.button.innerHTML += "Click the reload button to reset the board.";
-		if (display == null) { document.body.appendChild(this.button); } else { help.remove(); }
+		if (display == null) { 
+			helpButton.style.marginLeft = "10px";
+			document.body.appendChild(this.button); 
+		} else { 
+			helpButton.style.marginLeft = "0px";
+			help.remove(); 
+		}
 	},
 	remove : function() {
 		this.button.innerHTML = "";
+		helpButton.style.marginLeft = "0px";
 		helpMenu.remove();
 	}
 
