@@ -61,6 +61,13 @@ ai = {
 
 function aiOrderTurn() {
 	var counter = 0;
+	var winPos = [];
+	for (var i = 0; i < 6; i++) {
+		winPos[i] = [];
+		for (var j = 0; j < 6; j++) {
+			winPos[i][j] = 0;
+		}
+	}
 	for (var i = 0; i < matrix.length; i++) {
 		for (var j = 0; j < matrix.length; j++) {
 			counter = 0;
@@ -77,14 +84,14 @@ function aiOrderTurn() {
 			if (counter == 4) { // Right, red
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i + k][j] == 0) {
-						red = new aiPiece("red.png", "red", i + k, j);
+						winPos[i + k][j] = counter;
 					}
 				}
 			}
 			if (counter == -4) { // Right, blue
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i + k][j] == 0) {
-						blue = new aiPiece("blue.png", "blue", i + k, j);
+						winPos[i + k][j] = counter;
 					}
 				}
 			}
@@ -102,14 +109,14 @@ function aiOrderTurn() {
 			if (counter == 4) { // Down, red
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i][j + k] == 0) {
-						red = new aiPiece("red.png", "red", i, j + k);
+						winPos[i][j + k] = counter;
 					}
 				}
 			}
 			if (counter == -4) { // Down, blue
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i][j + k] == 0) {
-						blue = new aiPiece("blue.png", "blue", i, j + k);
+						winPos[i][j + k] = counter;
 					}
 				}
 			}
@@ -127,14 +134,14 @@ function aiOrderTurn() {
 			if (counter == 4) { // Diagonal right down, red
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i + k][j + k] == 0) {
-						red = new aiPiece("red.png", "red", i + k, j + k);
+						winPos[i + k][j + k] = counter;
 					}
 				}
 			}
 			if (counter == -4) { // Diagonal right down, blue
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i + k][j + k] == 0) {
-						blue = new aiPiece("blue.png", "blue", i + k, j + k);
+						winPos[i + k][j + k] = counter;
 					}
 				}
 			}
@@ -152,18 +159,28 @@ function aiOrderTurn() {
 			if (counter == 4) { // Diagonal left down, red
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i - k][j + k] == 0) {
-						red = new aiPiece("red.png", "red", i - k, j + k);
+						winPos[i - k][j + k] = counter;
 					}
 				}
 			}
 			if (counter == -4) { // Diagonal left down, blue
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i - k][j + k] == 0) {
-						blue = new aiPiece("blue.png", "blue", i - k, j + k);
+						winPos[i - k][j + k] = counter;
 					}
 				}
 			}
 			counter = 0;
+			for (var k = 0; k < winPos.length; k++) {
+				for (var l = 0; l < winPos.length; l++) {
+					if (winPos[k][l] == 4) {
+						red = new aiPiece("red.png", "red", k, l);
+					}
+					if (winPos[k][l] == -4) {
+						blue = new aiPiece("blue.png", "blue", k, l);
+					}
+				}
+			}
 		}
 	}
 }
