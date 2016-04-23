@@ -349,7 +349,7 @@ function piece(source, color) {
 	this.yCoord = y * 100 - 100;
 	if (matrix[x - 1][y - 1] == 0) {
 		matrix[x - 1][y - 1] = this;
-		if (aiOrder) { aiOrderTurn(); aiPlaceable = false; }
+		if (aiOrder) { aiOrderTurn(); aiPlaceable = true; }
 	}
 	this.update = function() {
 		ctx = gameArea.context;
