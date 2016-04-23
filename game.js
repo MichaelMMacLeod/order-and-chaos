@@ -56,7 +56,6 @@ function aiOrderTurn() {
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i + k][j] == 0) {
 						red = new aiPiece("red.png", "red", i + k, j);
-						aiPlaceable = false;
 					}
 				}
 			}
@@ -64,7 +63,6 @@ function aiOrderTurn() {
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i + k][j] == 0) {
 						blue = new aiPiece("blue.png", "blue", i + k, j);
-						aiPlaceable = false;
 					}
 				}
 			}
@@ -83,7 +81,6 @@ function aiOrderTurn() {
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i][j + k] == 0) {
 						red = new aiPiece("red.png", "red", i, j + k);
-						aiPlaceable = false;
 					}
 				}
 			}
@@ -91,7 +88,6 @@ function aiOrderTurn() {
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i][j + k] == 0) {
 						blue = new aiPiece("blue.png", "blue", i, j + k);
-						aiPlaceable = false;
 					}
 				}
 			}
@@ -110,7 +106,6 @@ function aiOrderTurn() {
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i + k][j + k] == 0) {
 						red = new aiPiece("red.png", "red", i + k, j + k);
-						aiPlaceable = false;
 					}
 				}
 			}
@@ -118,7 +113,6 @@ function aiOrderTurn() {
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i + k][j + k] == 0) {
 						blue = new aiPiece("blue.png", "blue", i + k, j + k);
-						aiPlaceable = false;
 					}
 				}
 			}
@@ -137,7 +131,6 @@ function aiOrderTurn() {
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i - k][j + k] == 0) {
 						red = new aiPiece("red.png", "red", i - k, j + k);
-						aiPlaceable = false;
 					}
 				}
 			}
@@ -145,7 +138,6 @@ function aiOrderTurn() {
 				for (var k = 0; k < 5; k++) {
 					if (matrix[i - k][j + k] == 0) {
 						blue = new aiPiece("blue.png", "blue", i - k, j + k);
-						aiPlaceable = false;
 					}
 				}
 			}
@@ -338,6 +330,7 @@ function aiPiece(source, color, aiX, aiY) {
 	this.yCoord = aiY * 100;
 	if (aiPlaceable) { 
 		matrix[aiX][aiY] = this;
+		aiPlaceable = false;
 	}
 	this.update = function() {
 		ctx = gameArea.context;
