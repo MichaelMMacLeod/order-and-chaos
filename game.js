@@ -37,12 +37,14 @@ function ai(type) {
 	var buttonC = document.getElementById("aiChaosButton");
 	if (aiOrder) {
 		buttonO.style.marginLeft = "0px";
+		aiOrder = false;
 	} else if (this.type == "order" && !aiChaos) { 
 		aiOrder = true; 
 		buttonO.style.marginLeft = "10px";
 	}
 	if (aiChaos) {
 		buttonC.style.marginLeft = "0px";
+		aiChaos = false;
 	} else if (this.type == "chaos" && !aiOrder) { 
 		aiChaos = true;
 		buttonC.style.marginLeft = "10px"; 
