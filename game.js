@@ -13,13 +13,6 @@ startGame = function() {
 			matrix[i][j] = 0;
 		}
 	}
-	aiTestMatrix = [];
-	for (var i = 0; i < 6; i++) {
-		aiTestMatrix[i] = [];
-		for (var j = 0; j < 6; j++) {
-			aiTestMatrix[i][j] = 0;
-		}
-	}
 	x = 1;
 	y = 1;
 	xDelay = 0;
@@ -209,11 +202,6 @@ reload = function() {
 			matrix[i][j] = 0;
 		}
 	}
-	for (var i = 0; i < aiTestMatrix.length; i++) {
-		for (var j = 0; j < aiTestMatrix.length; j++) {
-			aiTestMatrix[i][j] = 0;
-		}
-	}
 	ai.reset();
 }
 
@@ -284,10 +272,6 @@ gameArea = {
 				if (mouseY > i - 95 && mouseY < i + 5) { y = i / 100; }
 			}
 		} else { mouseX = undefined; mouseY = undefined; }
-		// You might be wondering: why the 95 and why i + 5? 
-		// It's because the canvas is about 5 pixels from the edge of the
-		// page. When we use 100 instead of 95, the cursor is detected in
-		// the incorrect position.
 		if (gameArea.keys && gameArea.keys[65] && x > 1 && xDelay == 0) {
 			x--;
 			xDelay = config.delay;
@@ -385,6 +369,7 @@ function aiPiece(source, color, aiX, aiY) {
 		ctx = gameArea.context;
 		ctx.save();
 		ctx.drawImage(this.image, this.xCoord, this.yCoord , this.width, this.height);
+		ctx.restore();
 	}
 }
 
@@ -406,6 +391,7 @@ function piece(source, color) {
 		ctx = gameArea.context;
 		ctx.save();
 		ctx.drawImage(this.image, this.xCoord, this.yCoord , this.width, this.height);
+		ctx.restore();
 	}
 }
 
