@@ -36,19 +36,21 @@ ai = {
 		this.type = type;
 		this.buttonO = document.getElementById("aiOrderButton");
 		this.buttonC = document.getElementById("aiChaosButton");
-		if (aiOrder) {
-			this.buttonO.style.marginLeft = "0px";
-			aiOrder = false;
-		} else if (this.type == "order" && !aiChaos) { 
+		this.buttonO.style.marginLeft = "0px";
+		this.buttonC.style.marginLeft = "0px";
+		if (!aiOrder && this.type == "order") {
 			aiOrder = true; 
 			this.buttonO.style.marginLeft = "10px";
+		} else {
+			aiOrder = false;
+			this.buttonO.style.marginLeft = "0px";
 		}
-		if (aiChaos) {
-			this.buttonC.style.marginLeft = "0px";
-			aiChaos = false;
-		} else if (this.type == "chaos" && !aiOrder) { 
+		if (!aiChaos && this.type == "chaos") {
 			aiChaos = true;
-			this.buttonC.style.marginLeft = "10px"; 
+			this.buttonC.style.marginLeft = "10px";
+		} else {
+			aiChaos = false;
+			this.buttonC.style.marginLeft = "0px";
 		}
 	},
 	reset : function() {
@@ -307,7 +309,6 @@ gameArea = {
 		}
 		if (gameArea.keys && gameArea.keys[config.blueKey]) {
 			blue = new piece("blue.png", "blue");
-			if (aiOrder) { aiOrderTurn(); aiPlaceable = false; }
 		}
 	}
 }
@@ -397,7 +398,9 @@ function piece(source, color) {
 	this.yCoord = y * 100 - 100;
 	if (matrix[x - 1][y - 1] == 0) {
 		matrix[x - 1][y - 1] = this;
-		if (aiOrder) { aiOrderTurn(); aiPlaceable = true; }
+		aiPlaceable = true;
+		if (aiOrder) { aiOrderTurn(); }
+		if (aiChaos) { aiChaosTurn(); }
 	}
 	this.update = function() {
 		ctx = gameArea.context;
