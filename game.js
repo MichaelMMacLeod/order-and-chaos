@@ -65,6 +65,9 @@ function aiOrderTurn() {
 	}
 	for (var i = 0; i < matrix.length; i++) {
 		for (var j = 0; j < matrix.length; j++) {
+			// Check for a row/column/diagonal of 4.
+			// If it exists, place the corresponding
+			// tile to complete it.
 			counter = 0;
 			for (var k = 0; k < 5; k++) {
 				try {
@@ -172,6 +175,102 @@ function aiOrderTurn() {
 						red = new aiPiece("red.png", "red", k, l);
 					}
 					if (winPos[k][l] == -4) {
+						blue = new aiPiece("blue.png", "blue", k, l);
+					}
+				}
+			}
+			// Check for a row/column/diagonal of 3
+			// where there are two unoccupied spaces
+			// on one end, and one unoccupied space 
+			// on the other. Fill up the adjacent 
+			// unoccupied space on the side with two 
+			// free space with the corresponding piece.
+			try {
+				if (matrix[i][j] == 0 && // Right, red, double free spaces on the right
+					matrix[i + 1][j].color == "red" &&
+					matrix[i + 2][j].color == "red" &&
+					matrix[i + 3][j].color == "red" &&
+					matrix[i + 4][j] == 0 &&
+					matrix[i + 5][j] == 0) {
+					matrix[i + 4][j] = 1;
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j] == 0 && // Right, blue, double free spaces on the right
+					matrix[i + 1][j].color == "blue" &&
+					matrix[i + 2][j].color == "blue" &&
+					matrix[i + 3][j].color == "blue" &&
+					matrix[i + 4][j] == 0 &&
+					matrix[i + 5][j] == 0) {
+					matrix[i + 4][j] = -1;
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j] == 0 && // Right, red, double free spaces on the left
+					matrix[i + 1][j] == 0 &&
+					matrix[i + 2][j].color == "red" &&
+					matrix[i + 3][j].color == "red" &&
+					matrix[i + 4][j].color == "red" &&
+					matrix[i + 5][j] == 0) {
+					matrix[i + 1][j] = 1;
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j] == 0 && // Right, blue, double free spaces on the left
+					matrix[i + 1][j] == 0 &&
+					matrix[i + 2][j].color == "blue" &&
+					matrix[i + 3][j].color == "blue" &&
+					matrix[i + 4][j].color == "blue" &&
+					matrix[i + 5][j] == 0) {
+					matrix[i + 1][j] = -1;
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j] == 0 && // Down, red, double free spaces on the bottom
+					matrix[i][j + 1].color == "red" &&
+					matrix[i][j + 2].color == "red" &&
+					matrix[i][j + 3].color == "red" &&
+					matrix[i][j + 4] == 0 &&
+					matrix[i][j + 5] == 0) {
+					matrix[i][j + 4] = 1;
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j] == 0 && // Down, blue, double free spaces on the bottom
+					matrix[i][j + 1].color == "blue" &&
+					matrix[i][j + 2].color == "blue" &&
+					matrix[i][j + 3].color == "blue" &&
+					matrix[i][j + 4] == 0 &&
+					matrix[i][j + 5] == 0) {
+					matrix[i][j + 4] = -1;
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j] == 0 && // Down, red, double free spaces on the top
+					matrix[i][j + 1] == 0 &&
+					matrix[i][j + 2].color == "red" &&
+					matrix[i][j + 3].color == "red" &&
+					matrix[i][j + 4].color == "red" &&
+					matrix[i][j + 5] == 0) {
+					matrix[i][j + 1] = 1;
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j] == 0 && // Down, blue, double free spaces on the top
+					matrix[i][j + 1] == 0 &&
+					matrix[i][j + 2].color == "blue" &&
+					matrix[i][j + 3].color == "blue" &&
+					matrix[i][j + 4].color == "blue" &&
+					matrix[i][j + 5] == 0) {
+					matrix[i][j + 1] = -1;
+				}
+			} catch (err) { }
+			for (var k = 0; k < matrix.length; k++) {
+				for (var l = 0; l < matrix.length; l++) {
+					if (matrix[k][l] == 1) {
+						red = new aiPiece("red.png", "red", k, l);
+					}
+					if (matrix[k][l] == -1) {
 						blue = new aiPiece("blue.png", "blue", k, l);
 					}
 				}
@@ -503,7 +602,7 @@ updateGameArea = function() {
 			}
 		}
 	}
-	for (var i = 0; i < endScreen.length; i ++) {
+	for (var i = 0; i < endScreen.length; i++) {
 		endScreen[i].update();
 	}
 	checkWin();
