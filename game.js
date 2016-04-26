@@ -185,6 +185,11 @@ function aiOrderTurn() {
 			// on the other. Fill up the adjacent 
 			// unoccupied space on the side with two 
 			// free space with the corresponding piece.
+			for (var k = 0; k < winPos.length; k++) {
+				for (var l = 0; l < winPos.length; l++) {
+					winPos[k][l] = 0;
+				}
+			}
 			try {
 				if (matrix[i][j] == 0 && // Right, red, double free spaces on the right
 					matrix[i + 1][j].color == "red" &&
@@ -192,7 +197,7 @@ function aiOrderTurn() {
 					matrix[i + 3][j].color == "red" &&
 					matrix[i + 4][j] == 0 &&
 					matrix[i + 5][j] == 0) {
-					matrix[i + 4][j] = 1;
+					winPos[i + 4][j] = 1;
 				}
 			} catch (err) { }
 			try {
@@ -202,7 +207,7 @@ function aiOrderTurn() {
 					matrix[i + 3][j].color == "blue" &&
 					matrix[i + 4][j] == 0 &&
 					matrix[i + 5][j] == 0) {
-					matrix[i + 4][j] = -1;
+					winPos[i + 4][j] = -1;
 				}
 			} catch (err) { }
 			try {
@@ -212,7 +217,7 @@ function aiOrderTurn() {
 					matrix[i + 3][j].color == "red" &&
 					matrix[i + 4][j].color == "red" &&
 					matrix[i + 5][j] == 0) {
-					matrix[i + 1][j] = 1;
+					winPos[i + 1][j] = 1;
 				}
 			} catch (err) { }
 			try {
@@ -222,7 +227,7 @@ function aiOrderTurn() {
 					matrix[i + 3][j].color == "blue" &&
 					matrix[i + 4][j].color == "blue" &&
 					matrix[i + 5][j] == 0) {
-					matrix[i + 1][j] = -1;
+					winPos[i + 1][j] = -1;
 				}
 			} catch (err) { }
 			try {
@@ -232,7 +237,7 @@ function aiOrderTurn() {
 					matrix[i][j + 3].color == "red" &&
 					matrix[i][j + 4] == 0 &&
 					matrix[i][j + 5] == 0) {
-					matrix[i][j + 4] = 1;
+					winPos[i][j + 4] = 1;
 				}
 			} catch (err) { }
 			try {
@@ -242,7 +247,7 @@ function aiOrderTurn() {
 					matrix[i][j + 3].color == "blue" &&
 					matrix[i][j + 4] == 0 &&
 					matrix[i][j + 5] == 0) {
-					matrix[i][j + 4] = -1;
+					winPos[i][j + 4] = -1;
 				}
 			} catch (err) { }
 			try {
@@ -252,7 +257,7 @@ function aiOrderTurn() {
 					matrix[i][j + 3].color == "red" &&
 					matrix[i][j + 4].color == "red" &&
 					matrix[i][j + 5] == 0) {
-					matrix[i][j + 1] = 1;
+					winPos[i][j + 1] = 1;
 				}
 			} catch (err) { }
 			try {
@@ -262,15 +267,15 @@ function aiOrderTurn() {
 					matrix[i][j + 3].color == "blue" &&
 					matrix[i][j + 4].color == "blue" &&
 					matrix[i][j + 5] == 0) {
-					matrix[i][j + 1] = -1;
+					winPos[i][j + 1] = -1;
 				}
 			} catch (err) { }
-			for (var k = 0; k < matrix.length; k++) {
-				for (var l = 0; l < matrix.length; l++) {
-					if (matrix[k][l] == 1) {
+			for (var k = 0; k < winPos.length; k++) {
+				for (var l = 0; l < winPos.length; l++) {
+					if (winPos[k][l] == 1) {
 						red = new aiPiece("red.png", "red", k, l);
 					}
-					if (matrix[k][l] == -1) {
+					if (winPos[k][l] == -1) {
 						blue = new aiPiece("blue.png", "blue", k, l);
 					}
 				}
