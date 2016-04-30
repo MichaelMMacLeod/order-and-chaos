@@ -270,6 +270,86 @@ function aiOrderTurn() {
 					winPos[i][j + 1] = -1;
 				}
 			} catch (err) { }
+			try {
+				if (matrix[i][j] == 0 && // Diagonal down right, red, double free spaces on the top
+					matrix[i + 1][j + 1] == 0 &&
+					matrix[i + 2][j + 2].color == "red" &&
+					matrix[i + 3][j + 3].color == "red" &&
+					matrix[i + 4][j + 4].color == "red" &&
+					matrix[i + 5][j + 5] == 0) {
+					winPos[i + 1][j + 1] = 1;
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j] == 0 && // Diagonal down right, blue, double free spaces on the top
+					matrix[i + 1][j + 1] == 0 &&
+					matrix[i + 2][j + 2].color == "blue" &&
+					matrix[i + 3][j + 3].color == "blue" &&
+					matrix[i + 4][j + 4].color == "blue" &&
+					matrix[i + 5][j + 5] == 0) {
+					winPos[i + 1][j + 1] = -1;
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j] == 0 && // Diagonal down right, red, double free spaces on the bottom
+					matrix[i + 1][j + 1].color == "red" &&
+					matrix[i + 2][j + 2].color == "red" &&
+					matrix[i + 3][j + 3].color == "red" &&
+					matrix[i + 4][j + 4] == 0 &&
+					matrix[i + 5][j + 5] == 0) {
+					winPos[i + 4][j + 4] = 1;
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j] == 0 && // Diagonal down right, blue, double free spaces on the bottom
+					matrix[i + 1][j + 1].color == "blue" &&
+					matrix[i + 2][j + 2].color == "blue" &&
+					matrix[i + 3][j + 3].color == "blue" &&
+					matrix[i + 4][j + 4] == 0 &&
+					matrix[i + 5][j + 5] == 0) {
+					winPos[i + 4][j + 4] = -1;
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j] == 0 && // Diagonal down left, red, double free spaces on the top
+					matrix[i + 1][j - 1] == 0 &&
+					matrix[i + 2][j - 2].color == "red" &&
+					matrix[i + 3][j - 3].color == "red" &&
+					matrix[i + 4][j - 4].color == "red" &&
+					matrix[i + 5][j - 5] == 0) {
+					winPos[i + 1][j - 1] = 1;
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j] == 0 && // Diagonal down left, blue, double free spaces on the top
+					matrix[i + 1][j - 1] == 0 &&
+					matrix[i + 2][j - 2].color == "blue" &&
+					matrix[i + 3][j - 3].color == "blue" &&
+					matrix[i + 4][j - 4].color == "blue" &&
+					matrix[i + 5][j - 5] == 0) {
+					winPos[i + 1][j - 1] = -1;
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j] == 0 && // Diagonal down left, red, double free spaces on the bottom
+					matrix[i + 1][j - 1].color == "red" &&
+					matrix[i + 2][j - 2].color == "red" &&
+					matrix[i + 3][j - 3].color == "red" &&
+					matrix[i + 4][j - 4] == 0 &&
+					matrix[i + 5][j - 5] == 0) {
+					winPos[i + 4][j - 4] = 1;
+				}
+			} catch (err) { }
+			try {
+				if (matrix[i][j] == 0 && // Diagonal down left, blue, double free spaces on the bottom
+					matrix[i + 1][j - 1].color == "blue" &&
+					matrix[i + 2][j - 2].color == "blue" &&
+					matrix[i + 3][j - 3].color == "blue" &&
+					matrix[i + 4][j - 4] == 0 &&
+					matrix[i + 5][j - 5] == 0) {
+					winPos[i + 4][j - 4] = -1;
+				}
+			} catch (err) { }
 			for (var k = 0; k < winPos.length; k++) {
 				for (var l = 0; l < winPos.length; l++) {
 					if (winPos[k][l] == 1) {
